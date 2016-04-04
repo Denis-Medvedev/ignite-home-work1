@@ -12,10 +12,12 @@ public class SubtotalCalculator implements IgniteCallable<Double> {
 
     private int type;
 
+    /** */
     public SubtotalCalculator(int type){
         this.type = type;
     }
 
+    /** */
     public Double call() throws Exception {
         double result = 0;
         Ignite ignite = Ignition.ignite();
