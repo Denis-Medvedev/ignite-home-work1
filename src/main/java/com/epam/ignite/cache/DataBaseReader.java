@@ -13,6 +13,7 @@ public class DataBaseReader implements Serializable {
 
     private Connection connection;
 
+    /** */
     private boolean connect() {
         boolean result = false;
         try {
@@ -29,6 +30,7 @@ public class DataBaseReader implements Serializable {
         return result;
     }
 
+    /** */
     private void disconnect() {
         try {
             if (!connection.isClosed()) {
@@ -39,6 +41,7 @@ public class DataBaseReader implements Serializable {
         }
     }
 
+    /** */
     public List<DataBaseRecord> readRecordsByFilter(int type) {
         List<DataBaseRecord> result = new ArrayList<DataBaseRecord>();
         if (connect()) {
