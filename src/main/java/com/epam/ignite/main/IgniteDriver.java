@@ -13,22 +13,20 @@ import org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi;
 import org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder;
 import org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class IgniteDriver {
 
     private Ignite ignite = null;
 
+    /** */
     public void start(String localAddress, String localPort) {
         Ignition.setClientMode(true);
         //
         TcpDiscoverySpi spi = new TcpDiscoverySpi();
         //
         TcpDiscoveryVmIpFinder ipFinder = new TcpDiscoveryVmIpFinder();
-        ipFinder.setAddresses(Arrays.asList(localAddress+":"+localPort));
+        ipFinder.setAddresses(Collections.singletonList(localAddress + ":" + localPort));
         spi.setIpFinder(ipFinder);
         //
         IgniteConfiguration cfg = new IgniteConfiguration();
@@ -38,10 +36,12 @@ public class IgniteDriver {
         ignite = Ignition.start(cfg);
     }
 
+    /** */
     public void close() {
         ignite.close();
     }
 
+    /** */
     public void clearCache() {
         System.out.println("Trying to clear cache...");
         IgniteCache<String, List<DataBaseRecord>> cache = ignite.getOrCreateCache("dataBaseRecords");
@@ -53,6 +53,7 @@ public class IgniteDriver {
         }
     }
 
+    /** */
     public void fillCache() {
         IgniteCompute compute = ignite.compute();
         //
@@ -64,6 +65,7 @@ public class IgniteDriver {
         compute.run(list);
     }
 
+    /** */
     public void checkCache(){
         System.out.println("Trying to get cache...");
         IgniteCache<String, List<DataBaseRecord>> cache = ignite.getOrCreateCache("dataBaseRecords");
@@ -71,7 +73,7 @@ public class IgniteDriver {
             int received = 0;
             System.out.println("Cache has been got.");
             for (int i=1;i<=4;i++) {
-                List<DataBaseRecord> o = null;
+                List<DataBaseRecord> o;
                 int counter = 0;
                 do {
                     System.out.println("Trying to get type=" + i + "...");
@@ -100,6 +102,7 @@ public class IgniteDriver {
         }
     }
 
+    /** */
     public double calcFromCache() {
         double total = 0;
         IgniteCompute compute = ignite.compute();
@@ -120,6 +123,7 @@ public class IgniteDriver {
         return total;
     }
 
+    /** */
     public static void main(String[] argv) {
         IgniteDriver driver = new IgniteDriver();
         driver.start("127.0.0.1","48501..48504");
