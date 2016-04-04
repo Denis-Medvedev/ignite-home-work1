@@ -14,11 +14,13 @@ public class CacheFiller implements IgniteRunnable {
     private DataBaseReader reader;
     private int type;
 
+    /** */
     public CacheFiller(int type) {
         this.type = type;
         this.reader = new DataBaseReader();
     }
 
+    /** */
     public void run() {
         Ignite ignite = Ignition.ignite();
         System.out.println("Starting to cache type="+type+"...");
