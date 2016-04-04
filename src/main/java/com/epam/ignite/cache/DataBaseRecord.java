@@ -14,26 +14,32 @@ public class DataBaseRecord implements Serializable {
         this.amount = amount;
     }
 
+    /** */
     public Long getBalanceId() {
         return balanceId;
     }
 
+    /** */
     public void setBalanceId(Long balanceId) {
         this.balanceId = balanceId;
     }
 
+    /** */
     public Double getAmount() {
         return amount;
     }
 
+    /** */
     public void setAmount(Double amount) {
         this.amount = amount;
     }
 
+    /** */
     public Date getLastChangeDate() {
         return lastChangeDate;
     }
 
+    /** */
     public void setLastChangeDate(Date lastChangeDate) {
         this.lastChangeDate = lastChangeDate;
     }
